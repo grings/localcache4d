@@ -7,8 +7,8 @@ uses
   LocalCache4D.Interfaces;
 
 type
-  TLocalCache4D = class(TInterfacedObject, ILocalCache4D)
-  private
+  TLocalCache4D = class sealed(TInterfacedObject, ILocalCache4D)
+  strict private
       FCacheList: TDictionary<string, string>;
       FInstance: string;
       FInstanceList: TDictionary<string, TDictionary<string, string>>;
@@ -44,11 +44,11 @@ uses
   System.Classes,
   System.SysUtils,
   System.JSON,
-  System.IOUtils, LocalCache4D.Compression;
+  System.IOUtils,
+  LocalCache4D.Compression;
 
 const
   C_SECTION = 'LOCALCACHEDATABASE';
-
 
 constructor TLocalCache4D.Create;
 begin

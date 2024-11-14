@@ -2,12 +2,9 @@ unit LocalCache4D.Compression;
 
 interface
 
-uses
-  System.ZLib;
-
 type
-  TLocalCache4DCompreesion = class
-  private
+  TLocalCache4DCompreesion = class sealed(TObject)
+  strict private
       class function Base256Decode(const Text: string): string;
       class function Base256Encode(const Text: string): string;
       class function ZCompressString(const Text: string): string;
@@ -20,6 +17,7 @@ type
 implementation
 
 uses
+  System.ZLib,
   System.Classes,
   System.NetEncoding;
 

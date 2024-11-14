@@ -6,7 +6,7 @@ uses
   System.Generics.Collections;
 
 type
-  ILocalCache4D = interface
+  ILocalCache4D = interface(IInterface)
     ['{1E1C947B-3DD3-4693-9D20-7C06D2AA0DCF}']
     function GetItem(const Item: string): string; overload;
     function GetItemAsBoolean(const Item: string): Boolean; overload;
