@@ -3,8 +3,8 @@ unit LocalCache4D;
 interface
 
 uses
-  LocalCache4D.Interfaces,
-  System.Generics.Collections;
+  System.Generics.Collections,
+  LocalCache4D.Interfaces;
 
 type
   TLocalCache4D = class(TInterfacedObject, ILocalCache4D)
@@ -16,22 +16,22 @@ type
       constructor Create;
       destructor Destroy; override;
       class function New : ILocalCache4D;
-      function GetItem(aItem: string): string; overload;
-      function GetItemAsBoolean(aItem: string): Boolean; overload;
-      function GetItemAsInteger(aItem: string): Integer; overload;
-      function Instance(aValue: string): ILocalCache4D;
+      function GetItem(const Item: string): string; overload;
+      function GetItemAsBoolean(const Item: string): Boolean; overload;
+      function GetItemAsInteger(const Item: string): Int32; overload;
+      function Instance(const Value: string): ILocalCache4D;
       function ListInstances: TDictionary<string, TDictionary<string, string>>;
       function ListItens: TDictionary<string, string>;
-      function LoadDatabase(aDabaseName: string = ''): ILocalCache4D;
-      function RemoveInstance(aValue: string): ILocalCache4D;
-      function RemoveItem(aKey: string): ILocalCache4D;
-      function SaveToStorage(aDabaseName: string = ''): ILocalCache4D;
-      function SetItem(aKey: string; aValue: Boolean): ILocalCache4D; overload;
-      function SetItem(aKey: string; aValue: Integer): ILocalCache4D; overload;
-      function SetItem(aKey, aValue: string): ILocalCache4D; overload;
-      function TryGetItem(aItem: string; out aResult: Boolean): Boolean; overload;
-      function TryGetItem(aItem: string; out aResult: Integer): Boolean; overload;
-      function TryGetItem(aItem: string; out aResult: string): Boolean; overload;
+      function LoadDatabase(const DabaseName: string = ''): ILocalCache4D;
+      function RemoveInstance(const Value: string): ILocalCache4D;
+      function RemoveItem(const Key: string): ILocalCache4D;
+      function SaveToStorage(const DabaseName: string = ''): ILocalCache4D;
+      function SetItem(const Key: string; const Value: Boolean): ILocalCache4D; overload;
+      function SetItem(const Key: string; const Value: Int32): ILocalCache4D; overload;
+      function SetItem(const Key, Value: string): ILocalCache4D; overload;
+      function TryGetItem(const Key: string; out Value: Boolean): Boolean; overload;
+      function TryGetItem(const Key: string; out Value: Int32): Boolean; overload;
+      function TryGetItem(const Key: string; out Value: string): Boolean; overload;
   end;
 
 var
@@ -77,31 +77,31 @@ begin
   Result := LocalCache;
 end;
 
-function TLocalCache4D.GetItem(aItem: string): string;
+function TLocalCache4D.GetItem(const Item: string): string;
 begin
   if Trim(FInstance) = '' then
     FInstance := 'default';
 
-  Result := FInstanceList.Items[FInstance].Items[aItem];
+  Result := FInstanceList.Items[FInstance].Items[Item];
 end;
 
-function TLocalCache4D.GetItemAsBoolean(aItem: string): Boolean;
+function TLocalCache4D.GetItemAsBoolean(const Item: string): Boolean;
 begin
-  Result := StrToBool(GetItem(aItem));
+  Result := StrToBool(GetItem(Item));
 end;
 
-function TLocalCache4D.GetItemAsInteger(aItem: string): Integer;
+function TLocalCache4D.GetItemAsInteger(const Item: string): Int32;
 var
   LItem: string;
 begin
-  LItem := GetItem(aItem);
+  LItem := GetItem(Item);
   Result := StrToIntDef(LItem, 0);
 end;
 
-function TLocalCache4D.Instance(aValue: string): ILocalCache4D;
+function TLocalCache4D.Instance(const Value: string): ILocalCache4D;
 begin
   Result := Self;
-  FInstance := aValue;
+  FInstance := Value;
 end;
 
 function TLocalCache4D.ListInstances: TDictionary<string, TDictionary<string, string>>;
@@ -117,7 +117,7 @@ begin
   Result := FInstanceList.Items[FInstance];
 end;
 
-function TLocalCache4D.LoadDatabase(aDabaseName: string = ''): ILocalCache4D;
+function TLocalCache4D.LoadDatabase(const DabaseName: string = ''): ILocalCache4D;
 var
   i: Integer;
   JSONValue: TJSONObject;
@@ -126,10 +126,10 @@ var
 begin
   Result := Self;
 
-  if aDabaseName = '' then
+  if DabaseName = '' then
     LFileName := ChangeFileExt(ParamStr(0), '.lc4')
   else
-    LFileName := aDabaseName;
+    LFileName := DabaseName;
 
   if FileExists(LFileName) then
   begin
@@ -155,24 +155,24 @@ begin
   end;
 end;
 
-function TLocalCache4D.RemoveInstance(aValue: string): ILocalCache4D;
+function TLocalCache4D.RemoveInstance(const Value: string): ILocalCache4D;
 begin
   Result := Self;
-  FInstanceList.Items[aValue].Free;
-  FInstanceList.Remove(aValue);
+  FInstanceList.Items[Value].Free;
+  FInstanceList.Remove(Value);
 end;
 
-function TLocalCache4D.RemoveItem(aKey: string): ILocalCache4D;
+function TLocalCache4D.RemoveItem(const Key: string): ILocalCache4D;
 begin
   Result := Self;
 
   if Trim(FInstance) = '' then
     FInstance := 'default';
 
-  FInstanceList.Items[FInstance].Remove(aKey);
+  FInstanceList.Items[FInstance].Remove(Key);
 end;
 
-function TLocalCache4D.SaveToStorage(aDabaseName: string = ''): ILocalCache4D;
+function TLocalCache4D.SaveToStorage(const DabaseName: string = ''): ILocalCache4D;
 var
   LFileName: string;
   LJsonFile: TJsonObject;
@@ -180,10 +180,10 @@ var
 begin
   Result := Self;
 
-  if aDabaseName = '' then
+  if DabaseName = '' then
     LFileName := ChangeFileExt(ParamStr(0), '.lc4')
   else
-    LFileName := aDabaseName;
+    LFileName := DabaseName;
 
   if FileExists(LFileName) then
     DeleteFile(LFileName);
@@ -211,17 +211,17 @@ begin
   end;
 end;
 
-function TLocalCache4D.SetItem(aKey: string; aValue: Boolean): ILocalCache4D;
+function TLocalCache4D.SetItem(const Key: string; const Value: Boolean): ILocalCache4D;
 begin
-  Result := SetItem(aKey, BoolToStr(aValue));
+  Result := SetItem(Key, BoolToStr(Value));
 end;
 
-function TLocalCache4D.SetItem(aKey: string; aValue: Integer): ILocalCache4D;
+function TLocalCache4D.SetItem(const Key: string; const Value: Int32): ILocalCache4D;
 begin
-  Result := SetItem(aKey, IntToStr(aValue));
+  Result := SetItem(Key, IntToStr(Value));
 end;
 
-function TLocalCache4D.SetItem(aKey, aValue: string): ILocalCache4D;
+function TLocalCache4D.SetItem(const Key, Value: string): ILocalCache4D;
 begin
   Result := Self;
 
@@ -231,40 +231,40 @@ begin
   if not FInstanceList.ContainsKey(FInstance) then
     FInstanceList.Add(FInstance, TDictionary<string, string>.Create);
 
-  if not FInstanceList.Items[FInstance].TryAdd(aKey, aValue) then
-    FInstanceList.Items[FInstance].Items[aKey] := aValue;
+  if not FInstanceList.Items[FInstance].TryAdd(Key, Value) then
+    FInstanceList.Items[FInstance].Items[Key] := Value;
 end;
 
-function TLocalCache4D.TryGetItem(aItem: string; out aResult: Boolean): Boolean;
+function TLocalCache4D.TryGetItem(const Key: string; out Value: Boolean): Boolean;
 var
   LTemp: string;
 begin
-  Result := TryGetItem(aItem, LTemp);
+  Result := TryGetItem(Key, LTemp);
 
   if Result then
-     aResult := StrToBoolDef(LTemp, False);
+     Value := StrToBoolDef(LTemp, False);
 end;
 
-function TLocalCache4D.TryGetItem(aItem: string; out aResult: Integer): Boolean;
+function TLocalCache4D.TryGetItem(const Key: string; out Value: Int32): Boolean;
 var
   LTemp: string;
 begin
-  Result := TryGetItem(aItem, LTemp);
+  Result := TryGetItem(Key, LTemp);
 
   if Result then
-     aResult := StrToIntDef(LTemp, 0);
+     Value := StrToIntDef(LTemp, 0);
 end;
 
-function TLocalCache4D.TryGetItem(aItem: string; out aResult: string): Boolean;
+function TLocalCache4D.TryGetItem(const Key: string; out Value: string): Boolean;
 begin
   Result := False;
-  aResult := '';
+  Value := '';
 
   if Trim(FInstance) = '' then
     FInstance := 'default';
 
   if FInstanceList.ContainsKey(FInstance) then
-    Result := FInstanceList.Items[FInstance].TryGetValue(aItem, aResult);
+    Result := FInstanceList.Items[FInstance].TryGetValue(Key, Value);
 end;
 
 initialization
