@@ -49,10 +49,10 @@ Se non definito il nome al file quando si chiamata il metodo `LoadDatabase`, vie
 Se vuoi creare in altra cartella dovrà essere informato il percorso intero.
 
 ```pascal
-LocalCache.LoadDatabase('Caminho do Banco'); //Se você não passar nenhum parametro ele cria o banco na mesma pasta da aplicação
+LocalCache.LoadDatabase('Percorso intero'); //Se non fornire il percorso crea il database nella stessa cartella dell'applicazione.
 ```
 
-## Setar um Dado para o Banco em Memória
+## Definire il database in memoria
 
 Para setar um dado para o Cache é necessário antes informar a instancia que você deseja que ele seja salvo, a instancia é como se fosse a sua tabela e/ou collection e dentro dela irá conter os registros Chave e Valor, você pode setar quantas instancias desejar;
 
