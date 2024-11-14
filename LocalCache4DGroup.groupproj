@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{6C236F53-8748-486E-AFAB-7EF5EE9A4067}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="LocalCache4D.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="samples\LocalCache4D\LocalCacheSample.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="LocalCache4D">
+        <MSBuild Projects="LocalCache4D.dproj"/>
+    </Target>
+    <Target Name="LocalCache4D:Clean">
+        <MSBuild Projects="LocalCache4D.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="LocalCache4D:Make">
+        <MSBuild Projects="LocalCache4D.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="LocalCacheSample">
+        <MSBuild Projects="samples\LocalCache4D\LocalCacheSample.dproj"/>
+    </Target>
+    <Target Name="LocalCacheSample:Clean">
+        <MSBuild Projects="samples\LocalCache4D\LocalCacheSample.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="LocalCacheSample:Make">
+        <MSBuild Projects="samples\LocalCache4D\LocalCacheSample.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="LocalCache4D;LocalCacheSample"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="LocalCache4D:Clean;LocalCacheSample:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="LocalCache4D:Make;LocalCacheSample:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
