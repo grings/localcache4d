@@ -20,29 +20,30 @@ Struttura di chiavi e valori, per una cache temporanea o fissa nell'applicazione
 
 ## ⚙️ installazione
 
-*Pré requisitos: Delphi 10.4
+* Delphi 10.4
 
+* **Installazione manuale**:
 
-* **Installazione manuale **: Aggiungere la seguente cartella al progetto *Project > Options > Resource Compiler > Directories and Conditionals > Include file search path*
+   Aggiungere la seguente cartella al progetto *Project > Options > Resource Compiler > Directories and Conditionals > Include file search path*
 
 ```pascal
 ../localcache4d/src
 ```
 
-* **Uses necessaria**:
+* **Uses neccessaria**:
 ```pascal
 LocalCache4D;
 ```
 
-## ⚡️ Como Utilizar o LocalCache4D
+## ⚡️ Come utilizare il LocalCache4D
 
-O LocalCache4D trabalha de forma Singleton, então basta adicionar a uses necessário e utilizar a instancia abaixo para ter acesso aos métodos
+Il LocalCache4D lavora come Singleton, così basta aggiungere la uses neccessaria e e utilizare la stanza soto per avere accesso ai metodi
 
-```
+```pascal
 LocalCache
 ```
 
-## Como Carregar o Banco de Dados
+## Come carricare il database
 
 Se você não definir um nome de arquivo ao chamar o método LoadDatabase, ele automaticamente criara um banco com a extensão .lc4 como o mesmo nome da sua aplicação dentro da pasta do exe. 
 
