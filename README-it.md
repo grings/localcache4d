@@ -16,7 +16,7 @@
 
 # localcache4d
 
-Struttura di chiavi e valori, per una cache temporanea o fissa nell'applicazione
+Struttura di chiavi e valori, per una cache temporanea o fissa nell'applicazione.
 
 ## ⚙️ installazione
 
@@ -37,7 +37,7 @@ LocalCache4D;
 
 ## ⚡️ Come utilizare il LocalCache4D
 
-Il LocalCache4D lavora come Singleton, così basta aggiungere la uses neccessaria e e utilizare la stanza soto per avere accesso ai metodi
+Il LocalCache4D lavora come Singleton, così basta aggiungere la uses neccessaria e e utilizare la stanza soto per avere accesso ai metodi.
 
 ```pascal
 LocalCache
@@ -45,9 +45,8 @@ LocalCache
 
 ## Come carricare il database
 
-Se você não definir um nome de arquivo ao chamar o método LoadDatabase, ele automaticamente criara um banco com a extensão .lc4 como o mesmo nome da sua aplicação dentro da pasta do exe. 
-
-Caso você desejar criar o banco em um local diferente é preciso informar todo o Path do Banco.
+Se non definito il nome al file quando si chiamata il metodo `LoadDatabase`, viene creato automaticamente il database con la stensione `.lc4` e con il nome dell'applicazione al interno della cartella do si trova il `.exe`.
+Se vuoi creare in altra cartella dovrà essere informato il percorso intero.
 
 ```pascal
 LocalCache.LoadDatabase('Caminho do Banco'); //Se você não passar nenhum parametro ele cria o banco na mesma pasta da aplicação
